@@ -155,6 +155,7 @@ the bootstrap (this scaffold); v1.A is the first real shipped capability.
 - Build path: this project's `Makefile` → `../Makefile` → `~/work/projects/builder/`
 - Cloudflare deploy constraints: Vite ≥ 6, frozen-lockfile install, no `_redirects` SPA fallback (handled by `wrangler.jsonc`'s `not_found_handling` instead).
 - **Versioning**: two-level `vN` / `vN.X` — see Versioning section above and `sites/portfolio/AI_AGENTS.md` for the canonical statement.
+- **Prompts log**: after a major change — new route or feature, infra / deploy / stack decision, dependency overhaul — append a dated `## YYYY-MM-DD` entry to `docs/Prompts.md` with a **one-paragraph summary** of what shipped. Summaries only; not file lists, not commit-by-commit detail. Future agents scan this to reconstruct session-level history without re-reading `git log`.
 
 ## Out of scope / don't touch
 
