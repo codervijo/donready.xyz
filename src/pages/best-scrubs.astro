@@ -1,0 +1,64 @@
+---
+import Base from "../layouts/Base.astro";
+import CtaBlock from "../components/CtaBlock.astro";
+import Icon from "../components/Icon.astro";
+import { ICONS } from "../lib/icons";
+
+const site = "https://donready.xyz";
+const url = `${site}/best-scrubs`;
+const title = "Best Scrubs by Body Type, Budget & Shift | DonReady";
+const description = "Curated picks for the best scrubs for tall, petite, plus-size, men, joggers, hot shifts, maternity, and budget shoppers.";
+
+const cards = [
+  { title: "Best scrubs for tall nurses", desc: "Brands with true tall lengths and longer inseams that don't ride up." },
+  { title: "Best scrubs for petite nurses", desc: "Petite cuts and shorter inseams that don't need hemming." },
+  { title: "Best scrubs for plus-size nurses", desc: "Extended sizing, gusseted seats, and stretch fabrics that move with you." },
+  { title: "Best scrubs for men", desc: "Tailored men's-cut tops and athletic-fit pants from major brands." },
+  { title: "Best affordable scrubs", desc: "Workhorse sets under $40 that still hold up shift after shift." },
+  { title: "Best jogger scrubs", desc: "Cuffed and tapered styles for a modern, comfortable look." },
+  { title: "Best scrubs for hot shifts", desc: "Lightweight, breathable fabrics for warm units and busy floors." },
+  { title: "Best maternity scrubs", desc: "Comfortable, growable fits with belly support and easy nursing access." },
+];
+---
+<Base>
+  <Fragment slot="head">
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={url} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Best Scrubs by Body, Budget & Shift" />
+    <meta property="og:description" content="Find the right scrub pick for your body type, role and shift." />
+    <meta property="og:url" content={url} />
+    <meta property="og:site_name" content="DonReady" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+  </Fragment>
+
+  <section class="container-page py-12 md:py-16">
+    <div class="max-w-3xl">
+      <div class="text-xs font-semibold uppercase tracking-wide text-[var(--color-brand)]">Best of</div>
+      <h1 class="mt-2 text-4xl md:text-5xl font-bold">Best scrubs by body, budget &amp; shift</h1>
+      <p class="mt-3 text-lg text-muted-foreground">
+        Hand-picked categories so you can skip straight to options that actually fit your needs.
+      </p>
+    </div>
+
+    <div class="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+      {cards.map((c) => (
+        <article class="surface-card p-6 flex flex-col">
+          <h2 class="text-lg font-semibold">{c.title}</h2>
+          <p class="mt-2 text-sm text-muted-foreground flex-1">{c.desc}</p>
+          <a href="/scrub-fit-quiz" class="mt-5 inline-flex items-center text-sm font-medium text-[var(--color-brand)] hover:underline">
+            See picks
+            <Icon path={ICONS.arrowRight} class="ml-1 h-4 w-4" />
+          </a>
+        </article>
+      ))}
+    </div>
+  </section>
+  <CtaBlock />
+</Base>

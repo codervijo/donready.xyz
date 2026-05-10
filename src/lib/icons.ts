@@ -12,4 +12,13 @@ export const ICONS = {
   check: '<path d="M20 6 9 17l-5-5"></path>',
   menu: '<line x1="4" x2="20" y1="12" y2="12"></line><line x1="4" x2="20" y1="6" y2="6"></line><line x1="4" x2="20" y1="18" y2="18"></line>',
   x: '<path d="M18 6 6 18"></path><path d="m6 6 12 12"></path>',
+  checkCircle:
+    '<circle cx="12" cy="12" r="10"></circle><path d="m9 12 2 2 4-4"></path>',
+  info:
+    '<circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path>',
+  arrowLeft: '<path d="m12 19-7-7 7-7"></path><path d="M19 12H5"></path>',
+  rotateCcw:
+    '<path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path><path d="M3 3v5h5"></path>',
+  alertTriangle:
+    '<path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"></path><path d="M12 9v4"></path><path d="M12 17h.01"></path>',
 };

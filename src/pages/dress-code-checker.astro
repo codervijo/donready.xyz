@@ -1,0 +1,116 @@
+---
+import Base from "../layouts/Base.astro";
+import CtaBlock from "../components/CtaBlock.astro";
+import Icon from "../components/Icon.astro";
+import { ICONS } from "../lib/icons";
+
+const site = "https://donready.xyz";
+const url = `${site}/dress-code-checker`;
+const title = "Scrub Dress Code Checker — DonReady";
+const description = "Enter your workplace dress-code rules and get scrub recommendations that won't break policy. User-entered, not official.";
+
+const inputCls = "w-full rounded-lg border bg-background px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-ring)]";
+---
+<Base>
+  <Fragment slot="head">
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={url} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content="Filter scrub recommendations against your workplace's color, style, and embroidery rules." />
+    <meta property="og:url" content={url} />
+    <meta property="og:site_name" content="DonReady" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+  </Fragment>
+
+  <section class="container-page py-12 md:py-16">
+    <div class="max-w-3xl">
+      <div class="text-xs font-semibold uppercase tracking-wide text-[var(--color-brand)]">Tool</div>
+      <h1 class="mt-2 text-4xl md:text-5xl font-bold">Dress Code Checker</h1>
+      <p class="mt-3 text-lg text-muted-foreground">
+        Tell us your workplace rules and we'll filter scrub recommendations to match.
+      </p>
+    </div>
+
+    <div class="mt-6 flex gap-3 rounded-lg border bg-[var(--color-accent)] p-4 text-sm">
+      <Icon path={ICONS.info} class="h-5 w-5 shrink-0 text-[var(--color-brand)]" />
+      <p>This tool uses information you enter. It is not an official source for any employer's uniform policy. Always confirm with your employer before purchasing.</p>
+    </div>
+
+    <form id="dress-form" class="surface-card mt-8 p-6 md:p-8 grid gap-5">
+      <div>
+        <label for="dc-employer" class="block text-sm font-medium mb-2">Employer or facility name</label>
+        <input id="dc-employer" name="employer" class={inputCls} placeholder="e.g. Mercy General Hospital" />
+      </div>
+      <div>
+        <label for="dc-department" class="block text-sm font-medium mb-2">Department</label>
+        <input id="dc-department" name="department" class={inputCls} placeholder="e.g. ICU, Pediatrics, ER" />
+      </div>
+      <div>
+        <label for="dc-color" class="block text-sm font-medium mb-2">Required scrub color</label>
+        <input id="dc-color" name="color" class={inputCls} placeholder="e.g. Ceil blue, navy, hunter green" />
+      </div>
+      <div class="grid gap-5 md:grid-cols-2">
+        <div>
+          <label for="dc-pants" class="block text-sm font-medium mb-2">Allowed pants style</label>
+          <select id="dc-pants" name="pants" class={inputCls}>
+            <option>Any</option>
+            <option>Straight leg only</option>
+            <option>Joggers allowed</option>
+            <option>No joggers</option>
+          </select>
+        </div>
+        <div>
+          <label for="dc-logo" class="block text-sm font-medium mb-2">Logo / embroidery rules</label>
+          <select id="dc-logo" name="logo" class={inputCls}>
+            <option>Any</option>
+            <option>Required</option>
+            <option>Not allowed</option>
+            <option>Optional</option>
+          </select>
+        </div>
+      </div>
+      <div>
+        <label for="dc-notes" class="block text-sm font-medium mb-2">Notes (optional)</label>
+        <textarea id="dc-notes" name="notes" class={inputCls} rows="3" placeholder="Anything else? (e.g. white shoes only, no patterns)"></textarea>
+      </div>
+      <div>
+        <button type="submit" class="btn btn-primary">Check my dress code</button>
+      </div>
+    </form>
+
+    <div id="dress-result" class="surface-card mt-6 p-6 border-l-4 border-l-[var(--color-brand)] hidden">
+      <h2 class="text-lg font-semibold">Got it.</h2>
+      <p id="dress-result-summary" class="mt-2 text-muted-foreground"></p>
+      <p class="mt-3 text-xs text-muted-foreground">Reminder: this is based on the info you entered, not official employer policy.</p>
+    </div>
+  </section>
+  <CtaBlock />
+</Base>
+
+<script>
+  const form = document.getElementById("dress-form") as HTMLFormElement | null;
+  const result = document.getElementById("dress-result");
+  const summary = document.getElementById("dress-result-summary");
+  form?.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const data = new FormData(form);
+    const color = String(data.get("color") || "");
+    const pants = String(data.get("pants") || "Any");
+    const logo = String(data.get("logo") || "Any");
+    const parts = ["Based on your answers, DonReady will filter scrub recommendations to avoid likely non-compliant options"];
+    if (color) parts.push(` (color: ${color})`);
+    if (pants !== "Any") parts.push(`, pants: ${pants.toLowerCase()}`);
+    if (logo !== "Any") parts.push(`, logo: ${logo.toLowerCase()}`);
+    parts.push(".");
+    if (summary) summary.textContent = parts.join("");
+    result?.classList.remove("hidden");
+    result?.scrollIntoView({ behavior: "smooth", block: "start" });
+  });
+</script>

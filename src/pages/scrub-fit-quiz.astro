@@ -1,0 +1,335 @@
+---
+import Base from "../layouts/Base.astro";
+import Icon from "../components/Icon.astro";
+import { ICONS } from "../lib/icons";
+
+const site = "https://donready.xyz";
+const url = `${site}/scrub-fit-quiz`;
+const title = "Scrub Fit Quiz — DonReady";
+const description = "Take the free DonReady scrub fit quiz. Get matched with brands, sizes, and styles based on your body, budget, and workplace dress code.";
+
+const ROLES = ["Nurse", "Medical Assistant", "Dental", "Vet Tech", "Lab", "Student", "Other"];
+const BODY = ["Petite", "Tall", "Plus size", "Athletic build", "Curvy", "Broad shoulders", "Long torso", "Short inseam"];
+const FITS = ["Slim", "Modern", "Relaxed", "Jogger", "Straight leg"];
+const BUDGETS = ["Under $40/set", "$40–$75/set", "$75–$120/set", "Premium okay"];
+
+const totalSteps = 5;
+const inputCls = "w-full rounded-lg border bg-background px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-ring)]";
+---
+<Base>
+  <Fragment slot="head">
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={url} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content="Free quiz to match you with the right scrub brand, size, and fit." />
+    <meta property="og:url" content={url} />
+    <meta property="og:site_name" content="DonReady" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+  </Fragment>
+
+  <section class="container-page py-12 md:py-16">
+    <div class="max-w-3xl mx-auto">
+      <div class="text-center">
+        <h1 class="text-3xl md:text-4xl font-bold">Scrub Fit Quiz</h1>
+        <p class="mt-2 text-muted-foreground">Five quick steps. We'll match you with brands, sizes, and styles.</p>
+      </div>
+
+      <div id="quiz-progress" class="mt-8">
+        <div class="flex justify-between text-xs text-muted-foreground mb-2">
+          <span>Step <span id="quiz-step-num">1</span> of {totalSteps}</span>
+          <span><span id="quiz-progress-pct">20</span>%</span>
+        </div>
+        <div class="h-2 rounded-full bg-muted overflow-hidden">
+          <div id="quiz-progress-bar" class="h-full bg-[var(--color-brand)] transition-all" style="width: 20%"></div>
+        </div>
+      </div>
+
+      <div class="surface-card mt-8 p-6 md:p-10">
+        {/* Step 0: role */}
+        <div class="quiz-step" data-step="0">
+          <h2 class="text-xl md:text-2xl font-semibold">What's your role?</h2>
+          <div class="mt-6 grid gap-3 sm:grid-cols-2">
+            {ROLES.map((o) => (
+              <button type="button" class="quiz-opt flex items-center justify-between rounded-lg border px-4 py-3 text-left text-sm font-medium transition-colors hover:border-[var(--color-brand)]" data-field="role" data-value={o}>
+                <span>{o}</span>
+                <Icon path={ICONS.check} class="quiz-check h-4 w-4 text-[var(--color-brand)] hidden" />
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Step 1: body (multi) */}
+        <div class="quiz-step hidden" data-step="1">
+          <h2 class="text-xl md:text-2xl font-semibold">Any body fit concerns? (select all that apply)</h2>
+          <div class="mt-6 grid gap-3 sm:grid-cols-2">
+            {BODY.map((o) => (
+              <button type="button" class="quiz-opt-multi flex items-center justify-between rounded-lg border px-4 py-3 text-left text-sm font-medium transition-colors hover:border-[var(--color-brand)]" data-field="body" data-value={o}>
+                <span>{o}</span>
+                <Icon path={ICONS.check} class="quiz-check h-4 w-4 text-[var(--color-brand)] hidden" />
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Step 2: fit */}
+        <div class="quiz-step hidden" data-step="2">
+          <h2 class="text-xl md:text-2xl font-semibold">What fit do you prefer?</h2>
+          <div class="mt-6 grid gap-3 sm:grid-cols-2">
+            {FITS.map((o) => (
+              <button type="button" class="quiz-opt flex items-center justify-between rounded-lg border px-4 py-3 text-left text-sm font-medium transition-colors hover:border-[var(--color-brand)]" data-field="fit" data-value={o}>
+                <span>{o}</span>
+                <Icon path={ICONS.check} class="quiz-check h-4 w-4 text-[var(--color-brand)] hidden" />
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Step 3: budget */}
+        <div class="quiz-step hidden" data-step="3">
+          <h2 class="text-xl md:text-2xl font-semibold">What's your budget per set?</h2>
+          <div class="mt-6 grid gap-3 sm:grid-cols-2">
+            {BUDGETS.map((o) => (
+              <button type="button" class="quiz-opt flex items-center justify-between rounded-lg border px-4 py-3 text-left text-sm font-medium transition-colors hover:border-[var(--color-brand)]" data-field="budget" data-value={o}>
+                <span>{o}</span>
+                <Icon path={ICONS.check} class="quiz-check h-4 w-4 text-[var(--color-brand)] hidden" />
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Step 4: workplace */}
+        <div class="quiz-step hidden" data-step="4">
+          <h2 class="text-xl md:text-2xl font-semibold">Workplace rules</h2>
+          <div class="mt-6 grid gap-5">
+            <div>
+              <label for="quiz-color" class="block text-sm font-medium mb-2">Required color</label>
+              <input id="quiz-color" type="text" class={inputCls} placeholder="e.g. Ceil blue, navy, hunter green" />
+            </div>
+            <div>
+              <span class="block text-sm font-medium mb-2">Joggers allowed?</span>
+              <div class="flex flex-wrap gap-2">
+                {["Yes", "No", "Unsure"].map((o) => (
+                  <button type="button" class="quiz-opt-radio rounded-lg border px-4 py-2 text-sm font-medium hover:border-[var(--color-brand)]" data-field="joggers" data-value={o} aria-pressed="false" aria-label={`joggers ${o}`}>{o}</button>
+                ))}
+              </div>
+            </div>
+            <div>
+              <span class="block text-sm font-medium mb-2">Logo / embroidery required?</span>
+              <div class="flex flex-wrap gap-2">
+                {["Yes", "No", "Unsure"].map((o) => (
+                  <button type="button" class="quiz-opt-radio rounded-lg border px-4 py-2 text-sm font-medium hover:border-[var(--color-brand)]" data-field="logo" data-value={o} aria-pressed="false" aria-label={`logo ${o}`}>{o}</button>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Results */}
+        <div class="quiz-step hidden" data-step="5">
+          <h2 class="text-2xl md:text-3xl font-bold">Your scrub matches</h2>
+          <p id="quiz-summary" class="mt-2 text-muted-foreground text-sm"></p>
+
+          <div id="quiz-warning" class="mt-6 hidden flex gap-3 rounded-lg border border-amber-300 bg-amber-50 p-4 text-sm text-amber-900">
+            <Icon path={ICONS.alertTriangle} class="h-5 w-5 shrink-0" />
+            <div>
+              <strong>Dress-code warning:</strong> You preferred jogger fit but indicated joggers may not be allowed at work. Consider a tapered straight-leg style instead.
+            </div>
+          </div>
+
+          <div class="mt-6 grid gap-4 md:grid-cols-3">
+            <div class="rounded-xl border p-5">
+              <div class="text-xs font-semibold uppercase tracking-wide text-[var(--color-brand)]">Best overall</div>
+              <h4 class="mt-2 font-semibold">Mandala Modern</h4>
+              <div class="mt-1 text-sm text-muted-foreground">$78 / set</div>
+              <p class="mt-3 text-sm">True-to-size in modern fit. Soft 4-way stretch.</p>
+              <button type="button" class="btn btn-outline mt-4 w-full py-2">View options</button>
+            </div>
+            <div class="rounded-xl border p-5">
+              <div class="text-xs font-semibold uppercase tracking-wide text-[var(--color-brand)]">Best budget</div>
+              <h4 class="mt-2 font-semibold">Cherokee Workwear Revolution</h4>
+              <div class="mt-1 text-sm text-muted-foreground">$36 / set</div>
+              <p class="mt-3 text-sm">Runs slightly large. Order one size down for slim fit.</p>
+              <button type="button" class="btn btn-outline mt-4 w-full py-2">View options</button>
+            </div>
+            <div class="rounded-xl border p-5">
+              <div class="text-xs font-semibold uppercase tracking-wide text-[var(--color-brand)]">Best premium</div>
+              <h4 class="mt-2 font-semibold">FIGS Technical Collection</h4>
+              <div class="mt-1 text-sm text-muted-foreground">$118 / set</div>
+              <p class="mt-3 text-sm">Slim through hip and thigh. Size up if curvy.</p>
+              <button type="button" class="btn btn-outline mt-4 w-full py-2">View options</button>
+            </div>
+          </div>
+
+          <div class="mt-6 surface-card p-5 text-sm">
+            <h3 class="font-semibold">Size notes for your profile</h3>
+            <ul class="mt-2 space-y-1 list-disc pl-5 text-muted-foreground">
+              <li>Petite or short inseam? Look for "petite" length tops and inseams labeled 28" or shorter.</li>
+              <li>Plus size or curvy? Prioritize brands with extended sizing (XXS–5XL) and gusseted crotches.</li>
+              <li>Tall? Many brands offer "tall" lengths — confirm before ordering.</li>
+            </ul>
+          </div>
+
+          <div class="mt-8 flex flex-col sm:flex-row gap-3">
+            <button type="button" id="quiz-retake" class="btn btn-outline">
+              <Icon path={ICONS.rotateCcw} class="h-4 w-4" />
+              Retake quiz
+            </button>
+            <a href="/compare" class="btn btn-primary">Compare these brands</a>
+          </div>
+        </div>
+
+        <div id="quiz-nav" class="mt-8 flex items-center justify-between">
+          <button type="button" id="quiz-back" class="btn btn-outline" disabled>
+            <Icon path={ICONS.arrowLeft} class="h-4 w-4" />
+            Back
+          </button>
+          <button type="button" id="quiz-next" class="btn btn-primary">
+            <span id="quiz-next-label">Next</span>
+            <Icon path={ICONS.arrowRight} class="h-4 w-4" />
+          </button>
+        </div>
+      </div>
+
+      <p class="mt-6 text-center text-xs text-muted-foreground">
+        Recommendations are guidance only. Always confirm employer policy before purchasing.
+      </p>
+    </div>
+  </section>
+</Base>
+
+<script>
+  const TOTAL = 5;
+  const state: {
+    step: number;
+    role: string | null;
+    body: string[];
+    fit: string | null;
+    budget: string | null;
+    color: string;
+    joggers: string | null;
+    logo: string | null;
+  } = { step: 0, role: null, body: [], fit: null, budget: null, color: "", joggers: null, logo: null };
+
+  const stepEls = document.querySelectorAll<HTMLElement>(".quiz-step");
+  const progressWrap = document.getElementById("quiz-progress");
+  const stepNum = document.getElementById("quiz-step-num");
+  const progressPct = document.getElementById("quiz-progress-pct");
+  const progressBar = document.getElementById("quiz-progress-bar");
+  const navWrap = document.getElementById("quiz-nav");
+  const backBtn = document.getElementById("quiz-back") as HTMLButtonElement | null;
+  const nextBtn = document.getElementById("quiz-next") as HTMLButtonElement | null;
+  const nextLabel = document.getElementById("quiz-next-label");
+  const summary = document.getElementById("quiz-summary");
+  const warning = document.getElementById("quiz-warning");
+  const colorInput = document.getElementById("quiz-color") as HTMLInputElement | null;
+
+  function render() {
+    stepEls.forEach((el) => {
+      const step = Number(el.dataset.step);
+      el.classList.toggle("hidden", step !== state.step);
+    });
+    const onResults = state.step === TOTAL;
+    progressWrap?.classList.toggle("hidden", onResults);
+    navWrap?.classList.toggle("hidden", onResults);
+    if (!onResults) {
+      const pct = Math.round(((state.step + 1) / TOTAL) * 100);
+      if (stepNum) stepNum.textContent = String(state.step + 1);
+      if (progressPct) progressPct.textContent = String(pct);
+      if (progressBar) progressBar.style.width = `${pct}%`;
+      if (backBtn) backBtn.disabled = state.step === 0;
+      if (nextLabel) nextLabel.textContent = state.step === TOTAL - 1 ? "See results" : "Next";
+    } else {
+      renderResults();
+    }
+  }
+
+  function renderResults() {
+    if (summary) {
+      summary.textContent = `Based on your role (${state.role || "—"}), fit (${state.fit || "—"}), and budget (${state.budget || "—"}).`;
+    }
+    const warn = state.joggers === "No" && state.fit === "Jogger";
+    warning?.classList.toggle("hidden", !warn);
+  }
+
+  function setSingle(field: "role" | "fit" | "budget" | "joggers" | "logo", value: string) {
+    state[field] = value;
+    document.querySelectorAll<HTMLElement>(`[data-field="${field}"]`).forEach((btn) => {
+      const active = btn.dataset.value === value;
+      btn.classList.toggle("border-[var(--color-brand)]", active);
+      btn.classList.toggle("bg-[var(--color-accent)]", active);
+      btn.setAttribute("aria-pressed", String(active));
+      btn.querySelector(".quiz-check")?.classList.toggle("hidden", !active);
+    });
+  }
+
+  function toggleBody(value: string) {
+    const idx = state.body.indexOf(value);
+    if (idx >= 0) state.body.splice(idx, 1); else state.body.push(value);
+    document.querySelectorAll<HTMLElement>(`[data-field="body"][data-value="${value}"]`).forEach((btn) => {
+      const active = state.body.includes(value);
+      btn.classList.toggle("border-[var(--color-brand)]", active);
+      btn.classList.toggle("bg-[var(--color-accent)]", active);
+      btn.querySelector(".quiz-check")?.classList.toggle("hidden", !active);
+    });
+  }
+
+  document.querySelectorAll<HTMLElement>(".quiz-opt").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const field = btn.dataset.field as "role" | "fit" | "budget";
+      const value = btn.dataset.value || "";
+      setSingle(field, value);
+    });
+  });
+  document.querySelectorAll<HTMLElement>(".quiz-opt-multi").forEach((btn) => {
+    btn.addEventListener("click", () => toggleBody(btn.dataset.value || ""));
+  });
+  document.querySelectorAll<HTMLElement>(".quiz-opt-radio").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const field = btn.dataset.field as "joggers" | "logo";
+      setSingle(field, btn.dataset.value || "");
+    });
+  });
+  colorInput?.addEventListener("input", () => {
+    state.color = colorInput.value;
+  });
+
+  backBtn?.addEventListener("click", () => {
+    if (state.step > 0) {
+      state.step -= 1;
+      render();
+    }
+  });
+  nextBtn?.addEventListener("click", () => {
+    if (state.step < TOTAL) {
+      state.step += 1;
+      render();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  });
+  document.getElementById("quiz-retake")?.addEventListener("click", () => {
+    state.step = 0;
+    state.role = null;
+    state.body = [];
+    state.fit = null;
+    state.budget = null;
+    state.color = "";
+    state.joggers = null;
+    state.logo = null;
+    if (colorInput) colorInput.value = "";
+    document.querySelectorAll<HTMLElement>(".quiz-opt, .quiz-opt-multi, .quiz-opt-radio").forEach((btn) => {
+      btn.classList.remove("border-[var(--color-brand)]", "bg-[var(--color-accent)]");
+      btn.setAttribute("aria-pressed", "false");
+      btn.querySelector(".quiz-check")?.classList.add("hidden");
+    });
+    render();
+  });
+
+  render();
+</script>
