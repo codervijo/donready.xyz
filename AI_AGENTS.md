@@ -74,7 +74,7 @@ docker exec -w /usr/src/app <name> make test proj=donready.xyz
 ### Post-deploy checklist (do these once after the first successful deploy)
 
 - [ ] Verify in **Google Search Console** at https://search.google.com/search-console — add as `sc-domain:donready.xyz` property; verify via DNS TXT record. Until this is done, no SEO traffic data is observable for this site (and the workspace-wide `30 commercial sites with traffic` goal can't credit it).
-- [ ] Submit the sitemap (`https://donready.xyz/sitemap.xml`) inside GSC.
+- [ ] Submit the sitemap (`https://donready.xyz/sitemap-index.xml`) inside GSC.
 - [ ] Update the **Live URL** above with the actual deploy URL.
 - [ ] Run `make run ARGS="cleanup"` from `sites/portfolio/` so `data/portfolio.json` reflects the new project's state (and `project status donready.xyz` resolves cleanly).
 
@@ -86,6 +86,19 @@ make deps      # → pnpm install via the central builder
 make run       # → dev server
 make build     # → dist/
 make test      # → pnpm install + build + test (must be inside container)
+```
+
+**Previewing locally from a Claude Code session:** the shared `sites1`
+container runs in Docker **host network mode**, so a dev server started
+inside it on `localhost:4321` is reachable from the host at the same
+`http://localhost:4321/` — *no port publishing required* (`docker port`
+shows nothing; `NetworkSettings.Networks` is `host`). Astro prints
+`Network  use --host to expose`; ignore it — the default localhost bind
+already works from the host. Start a preview with:
+
+```bash
+docker exec -w /usr/src/app <container> make run proj=donready.xyz
+# then open http://localhost:4321/<route>/
 ```
 
 ## How this project is checked

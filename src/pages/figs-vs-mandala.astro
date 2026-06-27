@@ -7,14 +7,63 @@ import { ICONS } from "../lib/icons";
 const site = "https://donready.xyz";
 const url = `${site}/figs-vs-mandala/`;
 const title = "FIGS vs Mandala Scrubs: Fit, Price & Comfort Compared | DonReady";
-const description = "FIGS vs Mandala scrubs compared on fit, price, fabric, sizing and returns. Find which brand wins for long shifts.";
+const description = "FIGS vs Mandala scrubs compared on fabric, pockets, inseams, price and returns — with real specs (FIONx vs Equa-Tek) and June 2026 prices.";
+const lastUpdated = "June 2026";
 
 const choosePoints = [
-  "Want a structured, polished silhouette → FIGS",
-  "Want softer fabric and a friendlier price → Mandala",
-  "Petite or short inseam → Mandala",
-  "Premium feel and large style catalog → FIGS",
+  "Want a structured, tailored silhouette and the widest size range (XXS–6XL) → FIGS",
+  "Want the lowest price and the most pockets (9-pocket jogger) → Mandala",
+  "Want a roomier, more forgiving cut → Mandala",
+  "Want a longer 60-day exchange window → FIGS",
 ];
+
+// --- Verified spec rows (sources: wearfigs.com, mandalascrubs.com product/policy pages, June 2026) ---
+const faqs = [
+  {
+    q: "Which fits better, FIGS or Mandala?",
+    a: "FIGS runs slim and tailored — the Catarina/Zamora line sits close through the hip and thigh, so athletic and curvier builds often size up. Mandala's Soft Stretch cut is more relaxed and forgiving. Both offer petite, regular and tall inseams (FIGS Zamora: 27\"/29\"/31\"; Mandala 9-Pocket Jogger: roughly 27–28\"/29–30\"/31–32\")."
+  },
+  {
+    q: "Which is cheaper, FIGS or Mandala?",
+    a: "Mandala is significantly cheaper. As of June 2026, a Mandala V-Neck 6-Pocket top is $19.99 and the Mid-Rise 9-Pocket Jogger is $29.99, versus $42.00 for the FIGS Catarina top and $52.00 for the Zamora jogger on each brand's US site."
+  },
+  {
+    q: "Which is better for long shifts?",
+    a: "Both use a poly/spandex four-way-stretch blend with moisture-wicking and antimicrobial finishes. FIGS FIONx (72% polyester / 21% rayon / 7% spandex) holds a structured shape; Mandala's Equa-Tek blend (75% polyester / 19% viscose / 6% spandex) is softer and adds a spill-resistant finish. For hot units, the softer Mandala fabric and 9-pocket storage edge ahead; for a crisp look that survives daily wear, FIGS."
+  },
+  {
+    q: "Which should you choose, FIGS or Mandala?",
+    a: "Choose FIGS for a tailored fit, the broadest size range (XXS–6XL) and a 60-day exchange window. Choose Mandala to spend roughly half as much, get more pockets, and a roomier cut — accepting that Mandala's customer service and final-sale return rules draw more complaints."
+  },
+  {
+    q: "Are FIGS or Mandala scrubs see-through?",
+    a: "Neither brand publishes an opacity rating. FIGS FIONx is generally reported as opaque with good coverage. Mandala is mostly opaque, but several wearers flag specific thinner styles as revealing — buy darker colors or check reviews for the exact style before relying on it solo."
+  },
+  {
+    q: "How durable are FIGS and Mandala scrubs after repeated washing?",
+    a: "FIGS holds color and shape well overall, but wearers report pilling at the inner thigh and knee, fading on dark colors, and shrinkage if dried on high heat. Mandala reviewers report minimal pilling and the brand claims its Equa-Tek fabric resists shrinking; the more common Mandala complaints are about service and order accuracy, not fabric wear."
+  },
+];
+
+const faqLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqs.map((f) => ({
+    "@type": "Question",
+    name: f.q,
+    acceptedAnswer: { "@type": "Answer", text: f.a },
+  })),
+};
+
+const breadcrumbLd = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Home", item: `${site}/` },
+    { "@type": "ListItem", position: 2, name: "Compare", item: `${site}/compare/` },
+    { "@type": "ListItem", position: 3, name: "FIGS vs Mandala", item: url },
+  ],
+};
 ---
 <Base>
   <Fragment slot="head">
@@ -25,84 +74,228 @@ const choosePoints = [
 
     <meta property="og:type" content="article" />
     <meta property="og:title" content="FIGS vs Mandala Scrubs: Which Is Better?" />
-    <meta property="og:description" content="Side-by-side: fit, price, fabric, sizing and returns." />
+    <meta property="og:description" content="Side-by-side: fabric, pockets, inseams, price and returns." />
     <meta property="og:url" content={url} />
     <meta property="og:site_name" content="DonReady" />
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
+
+    <script type="application/ld+json" set:html={JSON.stringify(faqLd)} />
+    <script type="application/ld+json" set:html={JSON.stringify(breadcrumbLd)} />
   </Fragment>
 
   <article class="container-page py-12 md:py-16 max-w-4xl">
-    <div class="text-xs font-semibold uppercase tracking-wide text-[var(--color-brand)]">Comparison · 6 min read</div>
+    <nav aria-label="Breadcrumb" class="text-xs text-muted-foreground">
+      <ol class="flex flex-wrap items-center gap-1">
+        <li><a href="/" class="hover:underline">Home</a></li>
+        <li aria-hidden="true">/</li>
+        <li><a href="/compare/" class="hover:underline">Compare</a></li>
+        <li aria-hidden="true">/</li>
+        <li class="text-foreground font-medium" aria-current="page">FIGS vs Mandala</li>
+      </ol>
+    </nav>
+
+    <div class="mt-4 text-xs font-semibold uppercase tracking-wide text-[var(--color-brand)]">Comparison · 7 min read</div>
     <h1 class="mt-2 text-3xl md:text-5xl font-bold">FIGS vs Mandala Scrubs: Which Is Better for Fit, Price, and Comfort?</h1>
     <p class="mt-4 text-lg text-muted-foreground">
-      Both brands have devoted fans among healthcare workers. Here's how they stack up across the things that actually matter on a 12-hour shift.
+      Both brands have devoted fans among healthcare workers. Here's how the FIGS Catarina/Zamora line and Mandala's Soft Stretch line actually stack up — fabric, pockets, inseams, price and returns — across what matters on a 12-hour shift.
     </p>
 
     <div class="surface-card mt-8 p-6 border-l-4 border-l-[var(--color-brand)]">
       <h2 class="text-sm font-semibold uppercase tracking-wide text-muted-foreground">Quick answer</h2>
       <p class="mt-2 text-base">
-        Choose <strong>FIGS</strong> for a slim, tailored silhouette and a wide style catalog. Choose <strong>Mandala</strong> for softer fabric, a more forgiving modern fit, and a lower price point.
+        Choose <strong>FIGS</strong> for a slim, tailored fit, the widest size range (XXS–6XL), and a 60-day exchange window. Choose <strong>Mandala</strong> to pay roughly half as much (top $19.99 / jogger $29.99 vs FIGS $42 / $52, as of June 2026), get more pockets, and a roomier cut.
       </p>
     </div>
 
+    <!-- ============ SPEC COMPARISON TABLE ============ -->
     <div class="mt-10 overflow-x-auto">
       <table class="w-full text-sm border rounded-xl overflow-hidden">
         <thead class="bg-[var(--color-surface)] text-left">
           <tr>
-            <th class="p-3 font-semibold">Brand</th>
-            <th class="p-3 font-semibold">Best for</th>
-            <th class="p-3 font-semibold">Fit</th>
-            <th class="p-3 font-semibold">Price</th>
-            <th class="p-3 font-semibold">Fabric feel</th>
-            <th class="p-3 font-semibold">Size range</th>
-            <th class="p-3 font-semibold">Return policy</th>
+            <th class="p-3 font-semibold">Spec</th>
+            <th class="p-3 font-semibold">FIGS</th>
+            <th class="p-3 font-semibold">Mandala</th>
           </tr>
         </thead>
         <tbody>
           <tr class="border-t">
-            <td class="p-3 font-semibold">FIGS</td>
-            <td class="p-3">Slim, tailored look</td>
-            <td class="p-3">Slim through hip/thigh</td>
-            <td class="p-3">$48–$68 piece</td>
-            <td class="p-3">Smooth, structured</td>
-            <td class="p-3">XXS–3XL (varies)</td>
-            <td class="p-3 text-muted-foreground">Check current policy</td>
+            <td class="p-3 font-semibold">Flagship top (price, Jun 2026)</td>
+            <td class="p-3">Catarina One-Pocket — $42.00</td>
+            <td class="p-3">V-Neck 6-Pocket — $19.99</td>
           </tr>
           <tr class="border-t">
-            <td class="p-3 font-semibold">Mandala</td>
-            <td class="p-3">Soft, modern feel</td>
-            <td class="p-3">Modern, more forgiving</td>
-            <td class="p-3">$36–$54 piece</td>
-            <td class="p-3">Soft 4-way stretch</td>
-            <td class="p-3">XXS–3XL (varies)</td>
-            <td class="p-3 text-muted-foreground">Check current policy</td>
+            <td class="p-3 font-semibold">Flagship pant (price, Jun 2026)</td>
+            <td class="p-3">Zamora Jogger — $52.00</td>
+            <td class="p-3">Mid-Rise 9-Pocket Jogger — $29.99</td>
+          </tr>
+          <tr class="border-t">
+            <td class="p-3 font-semibold">Fabric blend</td>
+            <td class="p-3">FIONx — 72% polyester / 21% rayon / 7% spandex</td>
+            <td class="p-3">Equa-Tek — 75% polyester / 19% viscose / 6% spandex</td>
+          </tr>
+          <tr class="border-t">
+            <td class="p-3 font-semibold">Fabric weight (GSM)</td>
+            <td class="p-3 text-muted-foreground">Not published</td>
+            <td class="p-3 text-muted-foreground">Not published</td>
+          </tr>
+          <tr class="border-t">
+            <td class="p-3 font-semibold">Pockets — top / pant</td>
+            <td class="p-3">1 / 6</td>
+            <td class="p-3">6 / 9</td>
+          </tr>
+          <tr class="border-t">
+            <td class="p-3 font-semibold">Inseams — petite / regular / tall</td>
+            <td class="p-3">27" / 29" / 31"</td>
+            <td class="p-3">27–28" / 29–30" / 31–32"</td>
+          </tr>
+          <tr class="border-t">
+            <td class="p-3 font-semibold">Size range</td>
+            <td class="p-3">XXS–6XL</td>
+            <td class="p-3">XXS–5XL</td>
+          </tr>
+          <tr class="border-t">
+            <td class="p-3 font-semibold">Treatments</td>
+            <td class="p-3">Silvadur antimicrobial, moisture-wicking, water-repellent finish</td>
+            <td class="p-3">Equa-Tek spill-resistant, antimicrobial, moisture-wicking</td>
+          </tr>
+          <tr class="border-t">
+            <td class="p-3 font-semibold">Shipping (US)</td>
+            <td class="p-3">3–7 business days (+1–2 day processing); free over $50, else $5</td>
+            <td class="p-3">3–5 business days; free over $50, else $3.50</td>
+          </tr>
+          <tr class="border-t">
+            <td class="p-3 font-semibold">Returns / exchanges</td>
+            <td class="p-3">30-day return, 60-day exchange (unworn, tags on)</td>
+            <td class="p-3">30-day return; final-sale items exchange-only</td>
           </tr>
         </tbody>
       </table>
+      <p class="mt-2 text-xs text-muted-foreground">Prices and policies pulled from each brand's US site, as of {lastUpdated}. GSM is not published by either brand.</p>
     </div>
 
     <section class="mt-10">
       <h2 class="text-2xl font-bold">Which brand fits better?</h2>
       <div class="mt-3 space-y-3 text-base text-foreground/90 leading-relaxed">
-        <p>FIGS runs slim. Their core technical collection is tailored close to the body, especially through the hip and thigh. If you have an athletic build or curves, many wearers size up one notch.</p>
-        <p>Mandala uses a more relaxed modern cut with a softer waistband. It tends to be more forgiving for plus-size, curvy, and broad-shouldered shapes. Petite wearers often prefer Mandala's shorter inseam options.</p>
+        <p>FIGS runs slim. The core FIONx line (the Catarina top and Zamora jogger are the canonical pairing) is tailored close to the body, especially through the hip and thigh. Athletic builds and curvier shapes commonly size up one notch.</p>
+        <p>Mandala's Soft Stretch cut is more relaxed and forgiving, and is generally reported true-to-size — size down only if you want a fitted look. Both brands offer petite, regular and tall inseams, so length isn't the deciding factor; cut and price usually are.</p>
+      </div>
+    </section>
+
+    <!-- ============ CROSS-BRAND SIZING CONVERSION ============ -->
+    <section class="mt-10">
+      <h2 class="text-2xl font-bold">Cross-brand sizing: wear this in FIGS → try this in Mandala</h2>
+      <p class="mt-3 text-base text-foreground/90 leading-relaxed">
+        We aligned each brand's published body-measurement size chart (bust / waist / hip). They run nearly identical from XS to XL, so your letter size carries over one-to-one by measurement. The catch is fit, not numbers: FIGS is cut slim and tailored, while Mandala is cut roomier and trends slightly more generous in the waist and hip at L–XL. If you want the same fitted look you get from FIGS, size down one in Mandala.
+      </p>
+      <div class="mt-4 overflow-x-auto">
+        <table class="w-full text-sm border rounded-xl overflow-hidden">
+          <thead class="bg-[var(--color-surface)] text-left">
+            <tr>
+              <th class="p-3 font-semibold">If you wear (FIGS)</th>
+              <th class="p-3 font-semibold">Try (Mandala)</th>
+              <th class="p-3 font-semibold">Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="border-t">
+              <td class="p-3 font-semibold">XS</td>
+              <td class="p-3">XS</td>
+              <td class="p-3 text-muted-foreground">Same bust 33–34", waist ~25–26". Size to XXS for a FIGS-like fitted look.</td>
+            </tr>
+            <tr class="border-t">
+              <td class="p-3 font-semibold">S</td>
+              <td class="p-3">S</td>
+              <td class="p-3 text-muted-foreground">Same bust 35–36", waist ~27–28". Charts match closely.</td>
+            </tr>
+            <tr class="border-t">
+              <td class="p-3 font-semibold">M</td>
+              <td class="p-3">M</td>
+              <td class="p-3 text-muted-foreground">Identical: bust 37–38", waist 29–31", hip 39–41".</td>
+            </tr>
+            <tr class="border-t">
+              <td class="p-3 font-semibold">L</td>
+              <td class="p-3">L</td>
+              <td class="p-3 text-muted-foreground">Same bust 39–40"; Mandala waist/hip run ~1" more generous.</td>
+            </tr>
+            <tr class="border-t">
+              <td class="p-3 font-semibold">XL</td>
+              <td class="p-3">XL</td>
+              <td class="p-3 text-muted-foreground">Same bust 41–43"; Mandala waist runs ~1–2" larger (36–39" vs 35–37").</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </section>
 
     <section class="mt-10">
       <h2 class="text-2xl font-bold">Which is more affordable?</h2>
       <div class="mt-3 space-y-3 text-base text-foreground/90 leading-relaxed">
-        <p>Mandala typically wins on price. Tops and pants are usually $10–$15 less per piece than FIGS, and the brand runs frequent bundle promotions. FIGS rarely discounts core styles.</p>
+        <p>Mandala wins clearly on price. As of {lastUpdated}, the Mandala V-Neck 6-Pocket top is $19.99 and the Mid-Rise 9-Pocket Jogger is $29.99 on the brand's US site. The comparable FIGS pieces — the Catarina One-Pocket top ($42.00) and Zamora jogger ($52.00) — run more than double. A full FIGS set is roughly $94 vs about $50 for Mandala, before any promotions.</p>
       </div>
     </section>
 
     <section class="mt-10">
-      <h2 class="text-2xl font-bold">Which is better for long shifts?</h2>
+      <h2 class="text-2xl font-bold">Durability after repeated washes</h2>
       <div class="mt-3 space-y-3 text-base text-foreground/90 leading-relaxed">
-        <p>Both perform well. FIGS holds its shape after long wear and dozens of washes. Mandala is softer out of the package and breathes a bit better in warm units. For hot environments (ER, ED, OR turnover), Mandala edges ahead.</p>
+        <p>FIGS FIONx generally keeps its shape and structure, but wearer reviews consistently flag three issues over time: pilling at the inner thigh and knee (sometimes within the first couple of washes), fading on dark colors, and shrinkage when dried on high heat. Washing cold and hang-drying mitigates all three.</p>
+        <p>Mandala reviewers report comparatively little pilling, and the brand claims its Equa-Tek fabric resists shrinking. Most Mandala durability complaints are not about the fabric itself but about getting the right item in the first place (see negatives below).</p>
+      </div>
+    </section>
+
+    <section class="mt-10">
+      <h2 class="text-2xl font-bold">Fluid-resistant &amp; antimicrobial treatments</h2>
+      <div class="mt-3 space-y-3 text-base text-foreground/90 leading-relaxed">
+        <p>Both brands build protection into the fabric rather than as a topical coating. FIGS FIONx carries a Silvadur antimicrobial treatment (marketed for odor and bacterial-growth control) plus a water-repellent finish that beads light liquid on the surface. Note: FIGS reserves its explicit "fluid-resistant" rating for lab coats, not standard FIONx scrubs.</p>
+        <p>Mandala's Equa-Tek is marketed as spill-resistant (woven into the fibers), antimicrobial against odor-causing bacteria, and moisture-wicking. Neither finish replaces a gown for high-fluid procedures — treat both as splash resistance, not a barrier.</p>
+      </div>
+    </section>
+
+    <section class="mt-10">
+      <h2 class="text-2xl font-bold">Are they see-through?</h2>
+      <div class="mt-3 space-y-3 text-base text-foreground/90 leading-relaxed">
+        <p>Neither brand publishes an opacity rating. FIGS FIONx is widely reported as opaque with reliable coverage. Mandala is mostly opaque, but multiple wearers call out specific thinner styles as revealing — if opacity matters, buy darker colorways and read style-specific reviews before relying on a single layer.</p>
+      </div>
+    </section>
+
+    <section class="mt-10">
+      <h2 class="text-2xl font-bold">Tall &amp; petite sizing availability</h2>
+      <div class="mt-3 space-y-3 text-base text-foreground/90 leading-relaxed">
+        <p>Both brands cover petite, regular and tall inseams, so neither forces a tailor visit. FIGS offers a wider overall size range (XXS–6XL) and recommends petite for roughly 5'4" and under; the Zamora jogger comes in measured 27" / 29" / 31" inseams. Mandala spans XXS–5XL with petite/regular/tall joggers at roughly 27–28" / 29–30" / 31–32", plus maternity and men's lines.</p>
+      </div>
+    </section>
+
+    <section class="mt-10">
+      <h2 class="text-2xl font-bold">Shipping &amp; returns</h2>
+      <div class="mt-3 space-y-3 text-base text-foreground/90 leading-relaxed">
+        <p>Mandala ships within the US in 3–5 business days, free over $50 and $3.50 flat otherwise, with a 30-day return window — but final-sale items are exchange-only and refunds can take 2–5 business days to process. FIGS ships standard in 3–7 business days after 1–2 business days of processing (free over $50, otherwise $5), and allows 30-day returns plus a more generous 60-day exchange window (unworn, tags on; return shipping is via Happy Returns drop-off or a prepaid FedEx label).</p>
+      </div>
+    </section>
+
+    <!-- ============ HONEST NEGATIVES ============ -->
+    <section class="mt-10">
+      <h2 class="text-2xl font-bold">Honest negatives — both brands</h2>
+      <div class="mt-3 grid gap-6 md:grid-cols-2">
+        <div class="surface-card p-5">
+          <h3 class="font-semibold">Where FIGS disappoints</h3>
+          <ul class="mt-2 space-y-2 text-sm text-foreground/90">
+            <li class="flex items-start gap-2"><Icon path={ICONS.checkCircle} class="h-4 w-4 text-[var(--color-brand)] shrink-0 mt-0.5" /><span>Pilling at the inner thigh/knee, sometimes within the first 1–2 washes.</span></li>
+            <li class="flex items-start gap-2"><Icon path={ICONS.checkCircle} class="h-4 w-4 text-[var(--color-brand)] shrink-0 mt-0.5" /><span>Dark colors fade; seams can weaken and high heat shrinks the fabric.</span></li>
+            <li class="flex items-start gap-2"><Icon path={ICONS.checkCircle} class="h-4 w-4 text-[var(--color-brand)] shrink-0 mt-0.5" /><span>Recurring "quality has slipped" reviews versus the price (the top is $42).</span></li>
+            <li class="flex items-start gap-2"><Icon path={ICONS.checkCircle} class="h-4 w-4 text-[var(--color-brand)] shrink-0 mt-0.5" /><span>Zamora inseam can ride short when crouching.</span></li>
+          </ul>
+        </div>
+        <div class="surface-card p-5">
+          <h3 class="font-semibold">Where Mandala disappoints</h3>
+          <ul class="mt-2 space-y-2 text-sm text-foreground/90">
+            <li class="flex items-start gap-2"><Icon path={ICONS.checkCircle} class="h-4 w-4 text-[var(--color-brand)] shrink-0 mt-0.5" /><span>Customer service is the top complaint — no phone line, slow email, delayed refunds (BBB rating ~1.4/5).</span></li>
+            <li class="flex items-start gap-2"><Icon path={ICONS.checkCircle} class="h-4 w-4 text-[var(--color-brand)] shrink-0 mt-0.5" /><span>Order-accuracy issues: wrong sizes, incomplete orders, status stuck past the 3–5 day window.</span></li>
+            <li class="flex items-start gap-2"><Icon path={ICONS.checkCircle} class="h-4 w-4 text-[var(--color-brand)] shrink-0 mt-0.5" /><span>Certain thinner styles are reported as see-through.</span></li>
+            <li class="flex items-start gap-2"><Icon path={ICONS.checkCircle} class="h-4 w-4 text-[var(--color-brand)] shrink-0 mt-0.5" /><span>Final-sale items are exchange-only — no refund.</span></li>
+          </ul>
+        </div>
       </div>
     </section>
 
@@ -117,6 +310,11 @@ const choosePoints = [
         ))}
       </ul>
     </section>
+
+    <!-- ============ AUTHORSHIP / FRESHNESS ============ -->
+    <div class="surface-card mt-12 p-5 text-sm text-muted-foreground">
+      <p><strong class="text-foreground">Last updated {lastUpdated}.</strong> How we compare: we pull fabric blends, pocket counts, inseams, size ranges, prices and return policies directly from each brand's US product and policy pages, then cross-check fit, durability and opacity against aggregated wearer reviews. Prices reflect each brand's own site on the date shown and exclude promotions.</p>
+    </div>
   </article>
   <CtaBlock />
 </Base>
