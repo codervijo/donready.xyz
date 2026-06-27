@@ -11,6 +11,10 @@ custom_domains = [
     "donready.xyz",
 ]
 
+[index]
+indexnow_key = "1c5f8441f2d3d1d7b93bd17c8d0a097b"
+indexnow_enabled = true
+
 [stack]
 framework = "astro"
 

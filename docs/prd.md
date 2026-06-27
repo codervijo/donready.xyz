@@ -1,10 +1,10 @@
 ---
 project: donready.xyz
 prd_version: 1
-project_version: v0.A
-status: planned
+project_version: v1.A
+status: shipped
 owner: Vijo
-last_updated: 2026-05-08
+last_updated: 2026-05-10
 ---
 
 # donready.xyz — PRD
@@ -35,14 +35,15 @@ Two-level versioning convention (canonical: `sites/portfolio/AI_AGENTS.md`):
 | Version | Theme | Acceptance |
 |---|---|---|
 | v0 | scaffold | local builds, CF wrangler.jsonc + public/_headers in place, repo initialized |
-| v1 | <fill in: first real shipped capability> | <fill in: what users get> |
+| v1 | wedge of tools + landing pages live (pSEO deferred until GSC traction) | six routes deployed: `/`, `/best-scrubs`, `/compare`, `/figs-vs-mandala`, `/dress-code-checker`, `/scrub-fit-quiz`; brand comparisons + interactive fit quiz reachable on prod |
 
 ## 5. Phases
 
 | Phase | Theme | Features | Status |
 |---|---|---|---|
 | **v0.A** | scaffolded | `portfolio bootstrap` ran; standard files written; git initialized | ✅ |
-| **v1.A** | <fill in> | <fill in> | planned |
+| **v1.A** | wedge live | Lovable export hand-ported into 6 Astro pages; Tailwind 4 + base layout + header/footer/CTA components; vanilla-JS multi-step quiz + dress-code form (no React deps); deployed via Cloudflare Pages | ✅ |
+| **v1.B** | tbd — candidates | wire real affiliate links + `/go/` redirector for click attribution · email capture to a real provider · quiz scoring tied to actual product/sizing data · Article + FAQ structured data · fill out remaining ~4 informational pages to reach the ~10-page target | planned |
 
 ## 6. Open questions
 
