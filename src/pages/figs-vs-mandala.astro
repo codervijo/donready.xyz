@@ -311,6 +311,23 @@ const breadcrumbLd = {
       </ul>
     </section>
 
+    <!-- ============ VISIBLE FAQ ============ -->
+    <!-- Renders the same `faqs` used for the FAQPage JSON-LD, so every answer
+         is present verbatim in the visible HTML (Google requires FAQ answer
+         text to be on-page — fixes CHECK_095 + makes the FAQ rich result
+         eligible). -->
+    <section class="mt-12">
+      <h2 class="text-2xl font-bold">Frequently asked questions</h2>
+      <div class="mt-4 space-y-6">
+        {faqs.map((f) => (
+          <div>
+            <h3 class="font-semibold text-lg text-foreground">{f.q}</h3>
+            <p class="mt-2 text-base text-foreground/90 leading-relaxed">{f.a}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+
     <!-- ============ AUTHORSHIP / FRESHNESS ============ -->
     <div class="surface-card mt-12 p-5 text-sm text-muted-foreground">
       <p><strong class="text-foreground">Last updated {lastUpdated}.</strong> How we compare: we pull fabric blends, pocket counts, inseams, size ranges, prices and return policies directly from each brand's US product and policy pages, then cross-check fit, durability and opacity against aggregated wearer reviews. Prices reflect each brand's own site on the date shown and exclude promotions.</p>
